@@ -6,8 +6,9 @@ firstly make sure you installed flutter + nodejs + mysql on your pc
 
 1)
 
-start your mysql server 
-to import database tap the command: 
+start your mysql server
+
+import database tap the command: 
 
 ```
 mysql --user root --password  < sendify.sql
