@@ -4,7 +4,7 @@ this is an open source flutter and nodejs app with mysql database server
 to run the aplication :
 firstly make sure you installed flutter + nodejs + mysql on your pc
 
-1)***************************************************************
+1)
 
 start your mysql server 
 to import database tap the command: 
@@ -13,7 +13,7 @@ mysql --user root --password  < sendify.sql
 
 note: root is user account name  for mysql
 
-2)***************************************************************
+2)
 
 go to sendify-server open the terminla and tap :
 ```
@@ -23,7 +23,7 @@ or:
 ```
         node bin/www
 ```     
-3)***************************************************************
+3)
 
 start vscode or any editor import sendify folde tap the command: 
 ```
