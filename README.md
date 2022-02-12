@@ -30,7 +30,8 @@ start vscode or any editor import sendify folde tap the command:
 flutter run
 ```
 ****************************************************************
-##very important:
-          ###in sendify server in the function toDatabase change your right creadinial 
-          ###in flutter model change the host ip to right on your network
-          ###make sure application and serever in same network
+
+## very important:
+          ### in sendify server in the function toDatabase change your right creadinial 
+          ### in flutter model change the host ip to right on your network
+          ### make sure application and serever in same network
