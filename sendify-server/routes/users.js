@@ -130,11 +130,11 @@ router.get("/curr_user_info",(req,res,next)=>{
 
 // tempory method
 router.get("/i_am_here", function (req, res, next) {
-  /*if(req.session.user_id==undefined) {
+  if(req.session.user_id==undefined) {
     res.end("acces denid")
     return
-  }*/
-  user=8;//req.session.user_id
+  }
+  userreq.session.user_id
   toDatabase(`delete from status where user_id=${user}`,(_)=>{
     toDatabase(`insert into status(user_id)values(${user})`,(__)=>{
       res.json({msg_type:"succ"})
@@ -156,7 +156,7 @@ function toDatabase(sql, callback) {
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "@mine1997Amine",
+    password: "Amine1997",
     database: "sendify",
     charset:"utf8mb4"
   });

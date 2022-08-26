@@ -2,6 +2,8 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:sendify/models/model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Loading extends StatefulWidget {
   const Loading({Key? key}) : super(key: key);
@@ -13,16 +15,27 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> {
   bool isload = false;
   String defualt = "";
+  User user = User();
   @override
   void initState() {
     super.initState();
-    this.time();
+    this.redirect();
   }
-  void time() {
-    Timer(Duration(seconds: 5), (){
+
+  void redirect() async {
+    String? token = (await SharedPreferences.getInstance()).getString("token");
+    if (token == null)
       Navigator.pushNamedAndRemoveUntil(context, "/log_in", (route) => false);
-    });
+    else {
+      bool resualt = await user.log_in_fromToken(token);
+      if (resualt)
+        Navigator.pushNamedAndRemoveUntil(context, "/main", (route) => false,
+            arguments: user.token);
+      else
+        Navigator.pushNamedAndRemoveUntil(context, "/log_in", (route) => false);
+    }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

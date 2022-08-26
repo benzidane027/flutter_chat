@@ -8,7 +8,7 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:sendify/screen/maiPageScreen/PeopleTab.dart';
 import 'package:sendify/screen/maiPageScreen/messagesTab.dart';
 import 'package:sendify/screen/maiPageScreen/homeTab.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -47,6 +47,7 @@ class _MainPageState extends State<MainPage>
       setState(() {});
     });
   }
+
   @override
   void dispose() {
     mycontroller.dispose();
@@ -85,7 +86,16 @@ class _MainPageState extends State<MainPage>
                       ),
                     ),
                     PopupMenuItem(child: Center(child: Text("about"))),
-                    PopupMenuItem(child: Center(child: Text("deconnect")))
+                    PopupMenuItem(
+                        child: GestureDetector(
+                            onTap: () async {
+                              var prefs = await SharedPreferences.getInstance();
+                              await prefs.clear();
+                              await user.deconnect();
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, "/log_in", (route) => false);
+                            },
+                            child: Center(child: Text("deconnect"))))
                   ])
         ],
       ),

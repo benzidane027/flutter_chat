@@ -69,7 +69,7 @@ function toDatabase(sql, callback) {
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "@mine1997Amine",
+    password: "Amine1997",
     database: "sendify",
     charset:"utf8mb4"
   });

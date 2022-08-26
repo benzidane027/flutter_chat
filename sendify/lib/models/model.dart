@@ -1,7 +1,8 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
-String host = "http://192.168.0.151";
+String host = "http://10.0.0.5";
 String port = "3000";
 Map<String, String> headers_ = {};
 void updateCookie(http.Response response) {
@@ -27,11 +28,13 @@ class User {
         body: <String, String>{"token": token}, headers: headers_);
     Map resualt = jsonDecode(req.body);
     updateCookie(req);
+
     if (resualt["msg_type"] == "succ") {
       this.username = resualt["username"];
       this.fname = resualt["fname"];
       this.lname = resualt["lname"];
       this.token = resualt["token"];
+
       return true;
     }
     return false;
@@ -41,12 +44,15 @@ class User {
     var req = await client.post(Uri.parse("$host:$port/users/login"),
         body: <String, String>{"username": username, "password": password},
         headers: headers_);
+    var prefs = await SharedPreferences.getInstance();
     Map resualt = jsonDecode(req.body);
+
     updateCookie(req);
     if (resualt["msg_type"] == "succ") {
       this.fname = resualt["fname"];
       this.lname = resualt["lname"];
       this.token = resualt["token"];
+      prefs.setString("token", resualt["token"]);
       return true;
     }
     return false;
@@ -89,7 +95,7 @@ class User {
     var req = await client.get(Uri.parse("$host:$port/status/users_active"),
         headers: headers_);
     updateCookie(req);
-   
+
     Map resualt = jsonDecode(req.body);
     return resualt;
   }
@@ -101,7 +107,8 @@ class User {
     Map resualt = jsonDecode(req.body);
     return resualt;
   }
-  static  Future<Map> get_curr_user_info() async {
+
+  static Future<Map> get_curr_user_info() async {
     var req = await client.get(Uri.parse("$host:$port/users/curr_user_info"),
         headers: headers_);
     updateCookie(req);
@@ -111,6 +118,12 @@ class User {
 
   Future<void> i_am_here() async {
     var req = await client.post(Uri.parse("$host:$port/status/i_am_here"),
+        headers: headers_);
+    updateCookie(req);
+  }
+
+  Future deconnect() async {
+    var req = await client.post(Uri.parse("$host:$port/users/disconnect"),
         headers: headers_);
     updateCookie(req);
   }
